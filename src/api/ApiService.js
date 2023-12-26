@@ -13,11 +13,11 @@ export const deleteTodo = (id) => {
 }
 
 export const addTodo = (todo) => {
-    return ApiClient.post('/addTodo',todo)
+    return ApiClient.post('/addTodo', todo)
 }
 
-export const updateTodo = (id,todo) => {
-    return ApiClient.post(`/updateTodo/${id}`,todo)
+export const updateTodo = (id, todo) => {
+    return ApiClient.post(`/updateTodo/${id}`, todo)
 }
 
 export const getTodoById = (id) => {

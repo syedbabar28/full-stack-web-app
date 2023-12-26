@@ -109,7 +109,7 @@ export const AddTodoScreen = () => {
                                     <Field type="text" className="form-control" name="description" />
                                 </fieldset>
 
-                                    <button className="btn btn-success m-5 btn-lg col-sm-6" type="submit">Save</button>
+                                <button className="btn btn-success m-5 btn-lg col-sm-6" type="submit">Save</button>
 
                             </Form>
                         )
