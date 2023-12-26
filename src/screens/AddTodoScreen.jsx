@@ -18,25 +18,26 @@ export const AddTodoScreen = () => {
     const saveTodo = (values) => {
         let todo = { title: values.title, description: values.description }
 
-        if (id == 0) {
-            addTodo(todo)
+        if (id !== "0") {
+            updateTodo(id, todo)
                 .then((response) => {
                     if (response.data.status) {
                         navigation(-1)
                     }
-
+                    console.log(response)
                     console.log(response.data.status)
                 })
                 .catch((error) => {
                     console.log(error)
                 })
         } else {
-            updateTodo(id, todo)
+            addTodo(todo)
                 .then((response) => {
                     if (response.data.status) {
                         navigation(-1)
                     }
 
+                    console.log(response)
                     console.log(response.data.status)
                 })
                 .catch((error) => {
@@ -53,7 +54,7 @@ export const AddTodoScreen = () => {
                     setTitle(data.title)
                     setDescription(data.description)
                 }
-
+                console.log(response)
                 console.log(response.data.status)
             }).catch((error) => {
                 console.log(error)
@@ -109,7 +110,7 @@ export const AddTodoScreen = () => {
                                     <Field type="text" className="form-control" name="description" />
                                 </fieldset>
 
-                                <button className="btn btn-success m-5 btn-lg col-sm-6" type="submit">Save</button>
+                                <button className="btn btn-success m-5 btn-lg" type="submit">Save</button>
 
                             </Form>
                         )
