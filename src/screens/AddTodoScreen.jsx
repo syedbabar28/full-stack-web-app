@@ -47,7 +47,7 @@ export const AddTodoScreen = () => {
     }
 
     const getTodo = (id) => {
-        if (id !== 0) {
+        if (id !== "0") {
             getTodoById(id).then((response) => {
                 if (response.data.status) {
                     let data = response.data.data
