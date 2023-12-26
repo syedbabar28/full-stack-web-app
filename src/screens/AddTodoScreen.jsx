@@ -1,30 +1,64 @@
 import { ErrorMessage, Formik, Form, Field } from "formik"
 import { useEffect, useState } from "react"
-import { addTodo } from "../api/ApiService"
-import { useNavigate } from "react-router-dom"
+import { addTodo, getTodoById, updateTodo } from "../api/ApiService"
+import { useNavigate, useParams } from "react-router-dom"
 
 export const AddTodoScreen = () => {
-
     const navigation = useNavigate();
+    const { id } = useParams();
+    const [title, setTitle] = useState('')
+    const [description, setDescription] = useState('')
 
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
+    useEffect(() => {
+        getTodo(id)
+    }, [id])
 
+    console.log(id)
 
     const saveTodo = (values) => {
         let todo = { title: values.title, description: values.description }
 
-        addTodo(todo)
-            .then((response) => {
+        if (id == 0) {
+            addTodo(todo)
+                .then((response) => {
+                    if (response.data.status) {
+                        navigation(-1)
+                    }
+
+                    console.log(response.data.status)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        } else {
+            updateTodo(id, todo)
+                .then((response) => {
+                    if (response.data.status) {
+                        navigation(-1)
+                    }
+
+                    console.log(response.data.status)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+    }
+
+    const getTodo = (id) => {
+        if (id !== 0) {
+            getTodoById(id).then((response) => {
                 if (response.data.status) {
-                    navigation(-1)
+                    let data = response.data.data
+                    setTitle(data.title)
+                    setDescription(data.description)
                 }
 
                 console.log(response.data.status)
-            })
-            .catch((error) => {
+            }).catch((error) => {
                 console.log(error)
             })
+        }
     }
 
 
@@ -59,10 +93,9 @@ export const AddTodoScreen = () => {
                     validateOnBlur={false}
                     validateOnChange={false}
                 >
-
                     {
                         (props) => (
-                            <Form>
+                            <Form className="container">
                                 <ErrorMessage name="title" component="div" className="alert alert-warning" />
                                 <ErrorMessage name="description" component="div" className="alert alert-warning" />
 
@@ -76,13 +109,9 @@ export const AddTodoScreen = () => {
                                     <Field type="text" className="form-control" name="description" />
                                 </fieldset>
 
-                                <div>
-                                    <button className="btn btn-success m-5" type="submit">Save</button>
-                                </div>
+                                    <button className="btn btn-success m-5 btn-lg col-sm-6" type="submit">Save</button>
 
                             </Form>
-
-
                         )
                     }
 

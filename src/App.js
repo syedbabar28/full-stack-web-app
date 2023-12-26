@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<TodoListScreen />} />
-        <Route path="/AddTodo" element={<AddTodoScreen />} />
+        <Route path="/AddTodo/:id" element={<AddTodoScreen />}  />
 
 
       </Routes>

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { getAllTodos, deleteTodo } from "../api/ApiService"
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const TodoListScreen = () => {
     const navigate = useNavigate();
 
     const navigateToAddTodos = () => {
-        navigate("/AddTodo")
+        navigate("/AddTodo/0")
     }
 
     const [todos, setTodos] = useState([])
@@ -30,6 +30,10 @@ export const TodoListScreen = () => {
         })
     }
 
+    const editTodo = (id) => {
+        navigate(`/AddTodo/${id}`)
+    }
+
     useEffect(() => {
         getTodos()
     }, [])
@@ -39,7 +43,6 @@ export const TodoListScreen = () => {
             <div className="row p-2 align-middle">
                 <h5 className="col-sm-11 text-primary text-left">Want to maintain your daily task, reminder etc</h5>
                 <button className="col-sm-1 btn-sm btn btn-success" onClick={() => { navigateToAddTodos() }}>Add Todo</button>
-
             </div>
 
             <table className="table">
@@ -47,7 +50,8 @@ export const TodoListScreen = () => {
                     <tr>
                         <th>Title</th>
                         <th>Description</th>
-                        <th>Options</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
 
@@ -57,7 +61,12 @@ export const TodoListScreen = () => {
                             <tr key={todo.id}>
                                 <td>{todo.title}</td>
                                 <td>{todo.description}</td>
-                                <td><button className="btn btn-danger" onClick={() => { deleteTodoById(todo.id) }}>Delete</button></td>
+                                <td>
+                                    <button className="btn btn-warning btn-sm" onClick={() => { editTodo(todo.id) }}>Edit Todo</button>
+                                </td>
+                                <td>
+                                    <button className="btn btn-danger btn-sm" onClick={() => { deleteTodoById(todo.id) }}>Delete Todo</button>
+                                </td>
 
                             </tr>
                         )) : <tr>
