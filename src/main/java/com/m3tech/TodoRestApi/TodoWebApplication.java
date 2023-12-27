@@ -7,12 +7,13 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
-public class TodoRestApplication {
+public class TodoWebApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TodoRestApplication.class, args);
+		SpringApplication.run(TodoWebApplication.class, args);
 	}
 
+	// to allow other origins
 	@Bean
 	public WebMvcConfigurer corsConfigure() {
 		return new WebMvcConfigurer() {

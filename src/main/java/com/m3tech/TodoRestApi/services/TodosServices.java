@@ -13,12 +13,12 @@ import com.m3tech.TodoRestApi.repo.TodosRepo;
 public class TodosServices {
 
 	@Autowired
-	private TodosRepo repo;
+	private TodosRepo todoRepo;
 
 	public CustomResponse getAllTodos() {
 		CustomResponse response = new CustomResponse();
 
-		List<TodoModel> todosList = repo.getAllTodos();
+		List<TodoModel> todosList = todoRepo.getAllTodos();
 
 		if (todosList.size() > 0) {
 			response.setStatus(true);
@@ -37,7 +37,7 @@ public class TodosServices {
 
 		CustomResponse response = new CustomResponse();
 
-		TodoModel existingTodo = repo.findTodoById(id);
+		TodoModel existingTodo = todoRepo.findTodoById(id);
 
 		if (existingTodo != null) {
 			response.setStatus(true);
@@ -56,7 +56,7 @@ public class TodosServices {
 
 		CustomResponse response = new CustomResponse();
 
-		boolean status = repo.deleteTodo(id);
+		boolean status = todoRepo.deleteTodo(id);
 
 		if (status) {
 			response.setStatus(true);
@@ -75,7 +75,7 @@ public class TodosServices {
 
 		CustomResponse response = new CustomResponse();
 
-		TodoModel updatedTodo = repo.addTodo(todo);
+		TodoModel updatedTodo = todoRepo.addTodo(todo);
 
 		if (updatedTodo!=null) {
 			response.setStatus(true);
@@ -94,7 +94,7 @@ public class TodosServices {
 
 		CustomResponse response = new CustomResponse();
 
-		boolean status = repo.updateTodo(id,todo);
+		boolean status = todoRepo.updateTodo(id,todo);
 
 		if (status) {
 			response.setStatus(true);
