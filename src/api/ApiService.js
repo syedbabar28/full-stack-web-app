@@ -23,3 +23,7 @@ export const updateTodo = (id, todo) => {
 export const getTodoById = (id) => {
     return ApiClient.get(`/todos/getTodo/${id}`)
 }
+
+export const registerUser = (params) => {
+    return ApiClient.post("/auth/register",params)
+}
