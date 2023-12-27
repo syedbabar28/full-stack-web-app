@@ -25,5 +25,13 @@ export const getTodoById = (id) => {
 }
 
 export const registerUser = (params) => {
-    return ApiClient.post("/auth/register",params)
+    return ApiClient.post("/auth/register", params)
+}
+
+export const login = (userName, password) => {
+    let formData = new FormData()
+    formData.append("userName", userName)
+    formData.append("password", password)
+
+    return ApiClient.post("/auth/login", formData)
 }

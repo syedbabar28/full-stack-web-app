@@ -31,7 +31,7 @@ export const TodoListScreen = () => {
     }
 
     const editTodo = (id) => {
-        navigate(`/AddTodo/${id}`)
+        navigate(`/addTodo/${id}`)
     }
 
     useEffect(() => {
