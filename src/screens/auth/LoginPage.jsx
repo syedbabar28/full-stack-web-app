@@ -2,11 +2,13 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../api/ApiService";
+import { useAuth } from "../../data/AuthContext";
 
 
 export const LoginPage = () => {
 
     const navigation = useNavigate()
+    const auth =useAuth();
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
