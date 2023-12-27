@@ -39,6 +39,7 @@ export const LoginPage = () => {
 
             console.log(response)
         }).catch((error) => {
+            setErrorMessage(error)
             console.log(error)
         })
     }

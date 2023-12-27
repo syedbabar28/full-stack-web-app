@@ -10,13 +10,19 @@ export const TodoListScreen = () => {
     }
 
     const [todos, setTodos] = useState([])
+    const [errorMessage, setErrorMessage] = useState("")
 
     const getTodos = () => {
         getAllTodos().then((response) => {
-            setTodos(response.data.data);
-            console.log(response);
+            if (response.data.status) {
+                setTodos(response.data.data);
+            } else {
+                setErrorMessage(response.data.responseMessage)
+            }
+            console.log(response)
         }).catch((error) => {
-            console.log(error);
+            setErrorMessage(error.message)
+            console.log(error)
         })
     }
 
@@ -24,8 +30,11 @@ export const TodoListScreen = () => {
         deleteTodo(id).then((response) => {
             if (response.data.status) {
                 getTodos()
+            } else {
+                setErrorMessage(response.data.responseMessage)
             }
         }).catch((error) => {
+            setErrorMessage(error.message)
             console.log(error)
         })
     }
@@ -40,6 +49,12 @@ export const TodoListScreen = () => {
 
     return <>
         <div className="container">
+
+            {errorMessage != "" ? <div className="alert alert-danger">
+                <h6>{errorMessage}</h6>
+            </div> : <div></div>
+            }
+
             <div className="row p-2 align-middle">
                 <h5 className="col-sm-11 text-primary text-left">Want to maintain your daily task, reminder etc</h5>
                 <button className="col-sm-1 btn-sm btn btn-success" onClick={() => { navigateToAddTodos() }}>Add Todo</button>

@@ -8,6 +8,7 @@ export const AddTodoScreen = () => {
     const { id } = useParams();
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const [errorMessage, setErrorMessage] = useState("")
 
     useEffect(() => {
         getTodo(id)
@@ -23,11 +24,14 @@ export const AddTodoScreen = () => {
                 .then((response) => {
                     if (response.data.status) {
                         navigation(-1)
+                    } else {
+                        setErrorMessage(response.data.responseMessage)
                     }
                     console.log(response)
                     console.log(response.data.status)
                 })
                 .catch((error) => {
+                    setErrorMessage(error)
                     console.log(error)
                 })
         } else {
@@ -35,12 +39,15 @@ export const AddTodoScreen = () => {
                 .then((response) => {
                     if (response.data.status) {
                         navigation(-1)
+                    } else {
+                        setErrorMessage(response.data.responseMessage)
                     }
 
                     console.log(response)
                     console.log(response.data.status)
                 })
                 .catch((error) => {
+                    setErrorMessage(error)
                     console.log(error)
                 })
         }
@@ -53,10 +60,13 @@ export const AddTodoScreen = () => {
                     let data = response.data.data
                     setTitle(data.title)
                     setDescription(data.description)
+                } else {
+                    setErrorMessage(response.data.responseMessage)
                 }
                 console.log(response)
                 console.log(response.data.status)
             }).catch((error) => {
+                setErrorMessage(error)
                 console.log(error)
             })
         }
@@ -83,6 +93,11 @@ export const AddTodoScreen = () => {
 
     return <>
         <div className="container">
+
+            {errorMessage != "" ? <div className="alert alert-danger">
+                <h6>{errorMessage}</h6>
+            </div> : <div></div>
+            }
 
             <h4>Enter Todo Details</h4>
 

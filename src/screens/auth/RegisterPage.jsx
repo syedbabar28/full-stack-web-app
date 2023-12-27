@@ -8,6 +8,7 @@ export const RegisterPage = () => {
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
+    const [errorMessage, setErrorMessage] = useState("")
 
 
     const validate = (values) => {
@@ -37,16 +38,24 @@ export const RegisterPage = () => {
         registerUser(params).then((response) => {
             if (response.data.status) {
                 navigation(-1)
+            } else {
+                setErrorMessage(response.data.responseMessage)
             }
 
             console.log(response)
         }).catch((error) => {
+            setErrorMessage(error)
             console.log(error)
         })
     }
 
     return <>
         <div className="container p-5">
+
+            {errorMessage != "" ? <div className="alert alert-danger">
+                <h6>{errorMessage}</h6>
+            </div> : <div></div>
+            }
 
             <h4>Registration</h4>
 
