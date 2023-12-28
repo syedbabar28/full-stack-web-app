@@ -1,31 +1,36 @@
-const { createContext, useState, useContext } = require("react");
+const { createContext, useContext, useState } = require("react");
 export const AuthContext = createContext()
 
 export const useAuth = () => useContext(AuthContext)
 
 export const AuthProvider = ({ children }) => {
 
-    const [userDetails, setUserDetails] = useState(null)
-    const [isLoggedIn, setLoggedIn] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("")
+    const [isLoggedIn, setLoggedIn] = useState(false)
 
-    const login = (userName, password) => {
-        login(userName, password).then((response) => {
-            if (response.data.status) {
-                setLoggedIn(true)
-                setUserDetails(response.data.data)
-            } else {
-                setErrorMessage(response.data.responseMessage)
-            }
+    const getUserDetailsFromCache = () => {
+        let data = localStorage.getItem("userDetails")
+        if (data !== null) {
+            let userDetails = JSON.parse(data)
+            console.log(`user data: ${userDetails}`)
 
-            console.log(response)
-        }).catch((error) => {
-            setErrorMessage(error)
-            console.log(error)
-        })
+            return userDetails
+
+        } else {
+            return null
+        }
     }
 
-    return <AuthContext.Provider value={{ userDetails, isLoggedIn, errorMessage }}>
+    const setUserDetailsInCache = (values) => {
+        setLoggedIn(true)
+        localStorage.setItem("userDetails", JSON.stringify(values))
+    }
+
+    const logout = () => {
+        setLoggedIn(false)
+        localStorage.removeItem("userDetails")
+    }
+
+    return <AuthContext.Provider value={{ setUserDetailsInCache, logout, getUserDetailsFromCache, isLoggedIn }}>
         {children}
     </AuthContext.Provider>
 }

@@ -4,9 +4,25 @@ import { TodoListScreen } from "./screens/TodoListScreen";
 import { AddTodoScreen } from "./screens/AddTodoScreen";
 import { RegisterPage } from "./screens/auth/RegisterPage";
 import { LoginPage } from "./screens/auth/LoginPage";
-import { AuthProvider } from "./data/AuthContext";
+import { AuthProvider, useAuth } from "./data/AuthContext";
+import { Navigate } from "react-router-dom";
 
 function App() {
+
+
+  const AuthenticatedRoute = ({ children }) => {
+    const auth = useAuth()
+
+    let userDetails = auth.getUserDetailsFromCache()
+    console.log(auth)
+
+    if (userDetails !== null) {
+      return children
+    } else {
+      return <Navigate to="/" />
+    }
+  }
+
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -14,8 +30,14 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/todoList" element={<TodoListScreen />} />
-          <Route path="/addTodo/:id" element={<AddTodoScreen />} />
+          <Route path="/todoList" element={
+            <AuthenticatedRoute>
+              <TodoListScreen />
+            </AuthenticatedRoute>} />
+          <Route path="/addTodo/:id" element={
+            <AuthenticatedRoute>
+              <AddTodoScreen />
+            </AuthenticatedRoute>} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

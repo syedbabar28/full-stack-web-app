@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useState } from "react"
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 import { login } from "../../api/ApiService";
 import { useAuth } from "../../data/AuthContext";
 
@@ -8,12 +8,10 @@ import { useAuth } from "../../data/AuthContext";
 export const LoginPage = () => {
 
     const navigation = useNavigate()
-    const auth =useAuth();
+    const auth = useAuth();
     const [userName, setUserName] = useState("")
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
-
-
 
     const validate = (values) => {
         let errors = {}
@@ -34,6 +32,7 @@ export const LoginPage = () => {
 
         login(values.userName, values.password).then((response) => {
             if (response.data.status) {
+                auth.setUserDetailsInCache(response.data.data)
                 navigation("/todoList")
             } else {
                 setErrorMessage(response.data.responseMessage)
@@ -53,7 +52,7 @@ export const LoginPage = () => {
 
             <div>
 
-                {errorMessage != "" ? <div className="alert alert-danger">
+                {errorMessage !== "" ? <div className="alert alert-danger">
                     <h6>{errorMessage}</h6>
                 </div> : <div></div>
                 }
