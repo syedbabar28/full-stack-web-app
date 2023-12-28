@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
-import { getAllTodos, deleteTodo } from "../api/ApiService"
+import { getTodosByUser, deleteTodo } from "../api/ApiService"
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from "../data/AuthContext";
 
 export const TodoListScreen = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
-    const auth = useAuth();
+    const auth = useAuth()
+    let userDetails = auth.getUserDetailsFromCache()
 
     const [todos, setTodos] = useState([])
     const [errorMessage, setErrorMessage] = useState("")
@@ -18,7 +19,7 @@ export const TodoListScreen = () => {
     // console.log(`user data: ${auth.userDetails.userName}`)
 
     const getTodos = () => {
-        getAllTodos().then((response) => {
+        getTodosByUser(userDetails.id).then((response) => {
             if (response.data.status) {
                 setTodos(response.data.data);
             } else {

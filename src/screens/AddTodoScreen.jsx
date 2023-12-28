@@ -2,9 +2,12 @@ import { ErrorMessage, Formik, Form, Field } from "formik"
 import { useEffect, useState } from "react"
 import { addTodo, getTodoById, updateTodo } from "../api/ApiService"
 import { useNavigate, useParams } from "react-router-dom"
+import { useAuth } from "../data/AuthContext"
 
 export const AddTodoScreen = () => {
-    const navigation = useNavigate();
+    const navigation = useNavigate()
+    const auth = useAuth();
+    let userDetails = auth.getUserDetailsFromCache()
     const { id } = useParams();
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
@@ -20,7 +23,7 @@ export const AddTodoScreen = () => {
         let todo = { title: values.title, description: values.description }
 
         if (id !== "0") {
-            updateTodo(id, todo)
+            updateTodo(id, userDetails.id, todo)
                 .then((response) => {
                     if (response.data.status) {
                         navigation(-1)
@@ -35,7 +38,7 @@ export const AddTodoScreen = () => {
                     console.log(error)
                 })
         } else {
-            addTodo(todo)
+            addTodo(userDetails.id,todo)
                 .then((response) => {
                     if (response.data.status) {
                         navigation(-1)

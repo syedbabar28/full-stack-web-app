@@ -4,20 +4,20 @@ export const testApi = () => {
     return ApiClient.get('/todos/getAllTodos')
 }
 
-export const getAllTodos = () => {
-    return ApiClient.get('/todos/getAllTodos')
+export const getTodosByUser = (userId) => {
+    return ApiClient.get(`/todos/getTodosByUser/${userId}`)
 }
 
 export const deleteTodo = (id) => {
     return ApiClient.get(`/todos/deleteTodo/${id}`)
 }
 
-export const addTodo = (todo) => {
-    return ApiClient.post('/todos/addTodo', todo)
+export const addTodo = (userId,todo) => {
+    return ApiClient.post(`/todos/addTodo/${userId}`, todo)
 }
 
-export const updateTodo = (id, todo) => {
-    return ApiClient.post(`/todos/updateTodo/${id}`, todo)
+export const updateTodo = (id, userId, todo) => {
+    return ApiClient.post(`/todos/updateTodo/${id}/${userId}`, todo)
 }
 
 export const getTodoById = (id) => {
