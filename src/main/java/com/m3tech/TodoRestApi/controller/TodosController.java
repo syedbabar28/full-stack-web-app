@@ -15,33 +15,39 @@ import com.m3tech.TodoRestApi.services.TodosServices;
 @RestController
 @RequestMapping("/todos/")
 public class TodosController {
-	
+
 	@Autowired
 	private TodosServices todoService;
-	
+
 	@GetMapping("getAllTodos")
-	public CustomResponse getAlllTodos() {
+	public CustomResponse getAllTodos() {
 		return todoService.getAllTodos();
 	}
-	
+
+	@GetMapping("getTodosByUser/{id}")
+	public CustomResponse getTodosByUser(@PathVariable("id") int userId) {
+		return todoService.getTodosByUser(userId);
+	}
+
 	@GetMapping("/getTodo/{id}")
 	public CustomResponse getTodoById(@PathVariable("id") int id) {
 		return todoService.findTodoById(id);
 	}
-	
+
 	@GetMapping("deleteTodo/{id}")
 	public CustomResponse deleteTodo(@PathVariable("id") int id) {
 		return todoService.deleteTodo(id);
 	}
-	
-	@PostMapping("addTodo")
-	public CustomResponse addTodo(@RequestBody TodoModel model) {
-		return todoService.addTodo(model);
+
+	@PostMapping("addTodo/{id}")
+	public CustomResponse addTodo(@PathVariable("id") int id, @RequestBody TodoModel model) {
+		return todoService.addTodo(id, model);
 	}
-	
-	@PostMapping("updateTodo/{id}")
-	public CustomResponse updateTodo(@RequestBody TodoModel model,@PathVariable("id") int id) {
-		return todoService.updateTodo(id,model);
+
+	@PostMapping("updateTodo/{id}/{userId}")
+	public CustomResponse updateTodo(@RequestBody TodoModel model, @PathVariable("id") int id,
+			@PathVariable("userId") int userId) {
+		return todoService.updateTodo(id, userId, model);
 	}
 
 }

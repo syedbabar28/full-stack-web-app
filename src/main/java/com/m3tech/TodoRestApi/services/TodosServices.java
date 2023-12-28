@@ -33,6 +33,24 @@ public class TodosServices {
 		return response;
 	}
 
+	public CustomResponse getTodosByUser(int userId) {
+		CustomResponse response = new CustomResponse();
+
+		List<TodoModel> todosList = todoRepo.getTodosByUser(userId);
+
+		if (todosList.size() > 0) {
+			response.setStatus(true);
+			response.setResponseMessage("Todos found");
+			response.setData(todosList);
+		} else {
+			response.setStatus(false);
+			response.setResponseMessage("Todos not found");
+			response.setData(todosList);
+		}
+
+		return response;
+	}
+
 	public CustomResponse findTodoById(int id) {
 
 		CustomResponse response = new CustomResponse();
@@ -70,14 +88,14 @@ public class TodosServices {
 
 		return response;
 	}
-	
-	public CustomResponse addTodo(TodoModel todo) {
+
+	public CustomResponse addTodo(int userId, TodoModel todo) {
 
 		CustomResponse response = new CustomResponse();
 
-		TodoModel updatedTodo = todoRepo.addTodo(todo);
+		TodoModel updatedTodo = todoRepo.addTodo(userId, todo);
 
-		if (updatedTodo!=null) {
+		if (updatedTodo != null) {
 			response.setStatus(true);
 			response.setResponseMessage("Todo added successfully");
 			response.setData(updatedTodo);
@@ -90,11 +108,11 @@ public class TodosServices {
 		return response;
 	}
 
-	public CustomResponse updateTodo(int id,TodoModel todo) {
+	public CustomResponse updateTodo(int id, int userId, TodoModel todo) {
 
 		CustomResponse response = new CustomResponse();
 
-		boolean status = todoRepo.updateTodo(id,todo);
+		boolean status = todoRepo.updateTodo(id, userId, todo);
 
 		if (status) {
 			response.setStatus(true);

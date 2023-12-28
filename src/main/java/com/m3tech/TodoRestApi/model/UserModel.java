@@ -1,8 +1,15 @@
 package com.m3tech.TodoRestApi.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class UserModel {
@@ -16,6 +23,10 @@ public class UserModel {
 	private String password;
 
 	private String phoneNumber;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<TodoModel> todos;
 
 	public int getId() {
 		return id;
@@ -49,11 +60,17 @@ public class UserModel {
 		this.phoneNumber = phoneNumber;
 	}
 
+	public List<TodoModel> getTodos() {
+		return todos;
+	}
+
+	public void setTodos(List<TodoModel> todos) {
+		this.todos = todos;
+	}
+
 	@Override
 	public String toString() {
 		return "UserModel [id=" + id + ", userName=" + userName + ", password=" + password + ", phoneNumber="
-				+ phoneNumber + "]";
+				+ phoneNumber + ", todos=" + todos + "]";
 	}
-	
-	
 }

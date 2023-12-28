@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.m3tech</groupId>
 	<artifactId>TodoRestApi</artifactId>
-	<version>0.0.2-RELEASE</version>
+	<version>1.0.3-RELEASE</version>
 	<name>TodoRestApi</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
