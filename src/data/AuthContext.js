@@ -17,6 +17,7 @@ export const AuthProvider = ({ children }) => {
             return userDetails
 
         } else {
+            setLoggedIn(false)
             return null
         }
     }
