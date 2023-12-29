@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
         let data = localStorage.getItem("userDetails")
         if (data !== null) {
             let userDetails = JSON.parse(data)
+            setLoggedIn(true)
             console.log(`user data: ${userDetails}`)
 
             return userDetails

@@ -33,7 +33,7 @@ export const LoginPage = () => {
         login(values.userName, values.password).then((response) => {
             if (response.data.status) {
                 auth.setUserDetailsInCache(response.data.data)
-                navigation("/todoList")
+                navigation("/")
             } else {
                 setErrorMessage(response.data.responseMessage)
             }

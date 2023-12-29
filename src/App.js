@@ -19,7 +19,7 @@ function App() {
     if (userDetails !== null) {
       return children
     } else {
-      return <Navigate to="/" />
+      return <Navigate to="/login" />
     }
   }
 
@@ -28,9 +28,7 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/todoList" element={
+        <Route path="/" element={
             <AuthenticatedRoute>
               <TodoListScreen />
             </AuthenticatedRoute>} />
@@ -38,6 +36,8 @@ function App() {
             <AuthenticatedRoute>
               <AddTodoScreen />
             </AuthenticatedRoute>} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

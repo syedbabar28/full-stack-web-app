@@ -21,8 +21,9 @@ export const TodoListScreen = () => {
     const getTodos = () => {
         getTodosByUser(userDetails.id).then((response) => {
             if (response.data.status) {
-                setTodos(response.data.data);
+                setTodos(response.data.data)
             } else {
+                setTodos(response.data.data)
                 setErrorMessage(response.data.responseMessage)
             }
             console.log(response)
