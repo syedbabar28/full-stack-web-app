@@ -41,6 +41,8 @@ public class TodosRepo {
 		UserModel user = userJpa.findById(userId).orElse(null);
 		todo.setUser(user);
 
+		System.out.println("add todo:" + todo.toString());
+
 		return todoJpa.save(todo);
 	}
 

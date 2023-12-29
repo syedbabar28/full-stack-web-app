@@ -68,9 +68,4 @@ public class UserModel {
 		this.todos = todos;
 	}
 
-	@Override
-	public String toString() {
-		return "UserModel [id=" + id + ", userName=" + userName + ", password=" + password + ", phoneNumber="
-				+ phoneNumber + ", todos=" + todos + "]";
-	}
 }
