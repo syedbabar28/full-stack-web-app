@@ -6,6 +6,7 @@ import { RegisterPage } from "./screens/auth/RegisterPage";
 import { LoginPage } from "./screens/auth/LoginPage";
 import { AuthProvider, useAuth } from "./data/AuthContext";
 import { Navigate } from "react-router-dom";
+import { NoPageFound } from "./components/NoPageFound";
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
             </AuthenticatedRoute>} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="*" element={<NoPageFound/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
